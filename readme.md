@@ -27,3 +27,19 @@ Array.map((a每一项, b当前项索引, c数组) => {
 parseInt(1,0) -> 1
 parseInt(2,1) ->不存在1进制 NaN
 parseInt(3,2) ->3超过2进制的范围 NaN
+
+四、
+例题: console.log(1);
+      setTimeout(() => {console.log(2)},0);
+      console.log(3);
+      Promise.resolve(4).then(b => {
+        console.log(b)
+      })
+      console.log(5)
+task: 宏任务: 包括整体代码script，setTimeout，setInterval, 同步代码 [setTimeout]
+microTask: 微任务: Promise.then [Promise.resolve(4).then] -> []
+event-loop: 整体宏任务（同步代码） -> 所有的微任务 ->宏任务 -> 所有的微任务
+
+答案：13542
+
+五、
