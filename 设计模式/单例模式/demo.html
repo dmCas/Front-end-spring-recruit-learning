@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 页面上有4个按钮 a b c d
+    // a b => top
+    // c d => banner
+
+    var top = {
+      init: function() {
+        // 取到dom结构
+        this.render()
+        this.bind()
+      },
+      a: 4,
+      render: function() {
+        var me = this
+        me.btna = $('#a')
+      },
+      bind: function() {
+        var me =this
+        me.btna.click(function() {
+          // 业务逻辑
+          me.test()
+        })
+      },
+      test: function() {
+        a = 8
+      }
+    }
+
+    var banner = {
+      init: function() {
+        this.render()
+        this.bind()
+      },
+      render: function() {
+        var me = this
+        me.btna = $('#c')
+      },
+      bind: function() {
+        var me =this
+        me.btna.click(function() {
+          // 业务逻辑 谁点击this指向谁
+          me.test()
+        })
+      },
+      test: function() {
+        top.a = 10
+      }
+    }
+
+    top.init()
+
+    banner.init()
+    // $('#a').click(function() {
+    //   // 逻辑特别多
+    //   var a = 4
+    //   //......
+    // })
+
+    // $('#b').click(function() {
+    //   // 逻辑
+    // })
+
+    // $('#c').click(function() {
+    //   // 逻辑
+    // })
+
+    // $('#d').click(function() {
+    //   // 逻辑
+    // })
+  </script>
+</body>
+</html>
