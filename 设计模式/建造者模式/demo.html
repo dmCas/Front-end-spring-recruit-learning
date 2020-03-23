@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 作用: 1. 分部创建一个复杂的对象
+    // 2. 解耦封装过程和具体创建的组件
+    // 3. 无需关心组件如何组装
+
+
+    // 1. 产出的东西是房子
+    // 2. 包工头 调用建造者进行开工， 很清楚建造者的具体大项
+    // 3. 建造者是盖房子的， 可以建卧室 建客厅 建厨房...
+    function Fangzi() {
+      this.woshi = '',
+      this.keting = '',
+      this.chufang = ''
+    }
+
+    function Baogongtou() {
+      this.gaifangzi = function(builder) {
+        builder.jian_chufang()
+        builder.jian_keting()
+        builder.jian_woshi()
+      }
+    }
+
+    function Builder() {
+      this.jian_woshi = function(){
+        console.log('卧室我建好了')
+      }
+
+      this.jian_keting = function() {
+        console.log('客厅我建好了')
+      }
+
+      this.jian_chufang = function() {
+        console.log('厨房我建好了')
+      }
+
+      this.jiaogong = function() {
+        var _fangzi = new Fangzi()
+        _fangzi.woshi = 'ok'
+        return _fangzi
+      }
+    }
+
+    var builder = new Builder()
+    var baogongtou = new Baogongtou()
+    baogongtou.gaifangzi(builder)
+
+    // 客户要房子 只和包工头接触
+    var myhouse = builder.jiaogong()
+    console.log(myhouse)
+
+  </script>
+</body>
+</html>
