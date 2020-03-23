@@ -1,4 +1,8 @@
-var a = ["Welcome", "to", "Lexin", "!"];
-var b = ["Let", "us", "make", "the", "future", "together", "!"];
-var a1 = a.toString()
-console.log(a1)
+function sum(a, b){
+  return function(a, b){
+    return function(c, d){
+      return a+ b
+    }
+  }
+}
+sum(1, 2)(3)
