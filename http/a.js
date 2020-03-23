@@ -25,14 +25,40 @@
 
 // 闭包实现递增到10
 
-var add = (function(){
-  var result = 0;
-  return function(){
-    result++
-    return result
-  }
-})()
+// var add = (function(){
+//   var result = 0;
+//   return function(){
+//     result++
+//     return result
+//   }
+// })()
 
-console.log(add())
-console.log(add())
-console.log(add())
+// console.log(add())
+// console.log(add())
+// console.log(add())
+
+
+function currying(fn){
+  var allArgs = [] 
+  function next() {
+    arg = [].slice.call(arguments)
+    allArgs = allArgs.concat(arg)
+    return next
+  }
+  next.valueOf = function () {
+    return fn.apply(null, allArgs)
+  }
+
+  return next
+}
+
+var add = currying(function(){
+  var sum = 0;
+  for(var i=0; i< arguments.length;i++){
+    sum += arguments[i]
+  }
+  console.log(sum)
+  return sum
+})
+
+add(1)(2)(3).valueOf()
