@@ -18,6 +18,7 @@ Object.defineProperty(a, 'xiugai', {
   }
 })
 
+console.log(a.xiugai)
 a.xiugai = '前端Webs实习生 19'
 console.log(a.name + a.job + a.age)
 
