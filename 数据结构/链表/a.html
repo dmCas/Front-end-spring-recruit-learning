@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function LinkedList() {
+      function Node(node) {
+        this.node = node
+        this.next = null
+      }
+
+      this.head = null
+      this.length = 0
+
+      // 1. append追加方法
+      LinkedList.prototype.append = function (node) {
+        // 新建一个节点
+        var newNode = new Node(node)
+        // 判断是否添加的是第一个节点
+        if (this.length == 0) { // 是第一个节点
+          this.head = newNode
+        }
+        else { // 不是第一个节点
+          var current = this.head
+          // 找到最后一个节点
+          while (current.next) {
+            current = current.next
+          }
+          // 最后节点的next指向新的节点
+          current.next = newNode
+        }
+        this.length += 1
+      }
+
+      // 2. toString(便于测试)
+      LinkedList.prototype.toString = function () {
+        // 2.1 定义变量
+        var current = this.head
+        var listString = ''
+        // 2.2 循环获取一个个节点
+        while (current) {
+          listString += current.node + " "
+          current = current.next
+        }
+        return listString
+      }
+
+      // 3. insert方法
+      LinkedList.prototype.insert = function (position, node) {
+        // 3.1 需要一个插入的位置 需要一个插入的node节点 -> 通过形参传入
+        // 3.2 对position进行边界判断
+        // 3.3 根据node创建newNode
+        var newNode = new Node(node)
+        if (position < 0 || position > this.length) return false
+        // 3.3 情况判断 1、插入position=0的位置
+        if (position == 0) {
+          // 3.3.1 新节点的指针指向原来的头节点
+          newNode.next = this.head
+          // 3.3.2 修改原来头节点的指针指向新节点
+          this.head = newNode
+        } else {
+          var index = 0
+          var current = this.head
+          var previous = null // 定义一个前置节点来作为中间保存指向
+          while (index++ < position) {
+            previous = current
+            current = current.next
+          }
+          newNode.next = current
+          previous.next = newNode
+        }
+        this.length += 1
+
+
+      }
+
+      // 4. get 方法
+      LinkedList.prototype.get = function (position) {
+        // 1. 越界判断
+        if (position < 0 || position >= this.length) return null
+
+        // 2. 获取定义的data
+        var current = this.head
+        var index = 0
+        while (index < position) {
+          current = current.next
+          index++
+        }
+        return current.node
+      }
+
+      // 5. indexOf 方法
+      LinkedList.prototype.indexOf = function (node) {
+        // 1. 定义变量
+        var current = this.head
+        var index = 0
+        while (current) {
+          if (current.node == node) {
+            return index
+          }
+          current = current.next
+          index++
+        }
+
+        // 3. 找到最后没有找到，返回-1
+        return -1
+      }
+
+      // 6. reverse 方法
+      LinkedList.prototype.reverse = function () {
+        // 2 -> 3 -> 4 -> 5 ->null
+        // 5 -> 4 -> 3 -> 2 -> null
+        var current = this.head
+        // 设置一个前置节点
+        // var pre = null
+        // var next = null
+        // while(current){
+        //   pre.next = current
+        //   current.next = next
+        //   next = pre
+        // }
+        // var current = this.head
+        // 设置一个前置节点
+        var pre = null
+        while (current) {
+          const next = current.next
+          current.next = pre
+          pre = current
+          current = next
+        }
+        // return pre
+      }
+    }
+
+    var link = new LinkedList()
+    link.append(2)
+    link.append(3)
+    // link.get(2)
+    link.append(4)
+    link.append(5)
+    alert(link)
+    console.log(link)
+    link.reverse()
+    console.log(link)
+
+    alert(link)
+  </script>
+</body>
+
+</html>
