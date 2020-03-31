@@ -176,12 +176,12 @@ function LinkedList() {
 }
 
 var link = new LinkedList()
-link.append(-1)
-// link.append(3)
+link.append()
+link.append(3)
 // // link.get(2)
-// link.append(4)
-// link.append(5)
+link.append(4)
+link.append(5)
 // link.updata(1,8)
 // link.removeAt(1)
-// console.log(link)
+console.log(link)
 // link.reverse()

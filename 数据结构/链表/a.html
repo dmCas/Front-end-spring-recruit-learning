@@ -23,6 +23,7 @@
       LinkedList.prototype.append = function (node) {
         // 新建一个节点
         var newNode = new Node(node)
+        // console.log(newNode)
         // 判断是否添加的是第一个节点
         if (this.length == 0) { // 是第一个节点
           this.head = newNode
@@ -46,7 +47,7 @@
         var listString = ''
         // 2.2 循环获取一个个节点
         while (current) {
-          listString += current.node + " "
+          listString += current.data + " "
           current = current.next
         }
         return listString
@@ -135,22 +136,89 @@
           pre = current
           current = next
         }
-        // return pre
+        console.log(pre)
       }
+
+      // 7. update 方法
+      LinkedList.prototype.updata = function (position, data) {
+        if (position < 0 || position > this.length - 1) return null
+
+        var current = this.head
+        var index = 0
+        while (!(index == position)) {
+          current = current.next
+          index++
+        }
+        current.node = data
+        return true
+      }
+
+      // 8. removeAt 方法
+      LinkedList.prototype.removeAt = function (position) {
+        if (position < 0 || position > this.length - 1) return null
+        var current = this.head
+        //是否删除第一个节点
+        if (position == 0) {
+          this.head = this.head.next
+        } else {
+          var index = 0
+          var previous = null
+          while (index++ < position) {
+            previous = current
+            current = current.next
+          }
+          previous.next = current.next
+        }
+        this.length -= 1
+
+        return current
+      }
+
+      // 9. remove 方法
+      LinkedList.prototype.remove = function (node) {
+        // 1. 获取node的位置
+        var position = this.indexOf(node)
+
+        return this.removeAt(position)
+      }
+
+      LinkedList.prototype.isEmpty = function () {
+        return this.length == 0
+      }
+
+      LinkedList.prototype.removeElements = function (val) {
+        let cur = this.head
+        let newhead = new Node()
+        newhead.next = this.head
+        let pre = newhead
+        while (cur) {
+          if (cur.node === val) {
+            pre.next = cur.next
+          } else {
+            pre = cur
+          }
+          console.log(pre)
+          console.log(newhead)
+          cur = cur.next
+        }
+        console.log(newhead)
+        return newhead.next
+      };
     }
 
     var link = new LinkedList()
-    link.append(2)
+    link.append(8)
     link.append(3)
-    // link.get(2)
+    // // link.get(2)
     link.append(4)
     link.append(5)
-    alert(link)
-    console.log(link)
-    link.reverse()
-    console.log(link)
+    // link.updata(1,8)
+    // link.removeAt(1)
+    // console.log(link)
+    link.removeElements(3)
 
-    alert(link)
+
+
   </script>
 </body>
 
