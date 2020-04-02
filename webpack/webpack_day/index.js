@@ -1,10 +1,11 @@
 import a from './a'
 import b from './b'
 import pic from './img/cookie.jpeg'
-
-
+import './index.css'
+// import './index.scss'
 var img = new Image()
 img.src = pic
+img.classList.add('pic')
 var root = document.getElementById('root')
 root.append(img)
 
