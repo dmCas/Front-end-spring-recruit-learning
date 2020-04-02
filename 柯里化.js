@@ -56,7 +56,6 @@ function currying(fn){
   next.valueOf = function(){
       return fn.apply(null, allArgs);
   }
-
   return next;
 }
 var add = currying(function(){
