@@ -1,4 +1,4 @@
-@import './other.css';
+/* @import './other.css';
 body{
   background: red;
 }
@@ -6,4 +6,8 @@ body{
   width: 200px;
   height: 100px;
   column-count: 3;
+} */
+
+div:nth-of-type(odd){
+  background: rgb(247, 198, 126);
 }

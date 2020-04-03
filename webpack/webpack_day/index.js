@@ -1,31 +1,29 @@
+// import './index.css'
+
 import a from './a'
 import b from './b'
-import pic from './img/cookie.jpeg'
-import './index.css'
 
-import axios from 'axios'
-// import './index.scss'
-var img = new Image()
-img.src = pic
-img.classList.add('pic')
-var root = document.getElementById('root')
-root.append(img)
-
-// console.log(pic)
-
-// 既然webpack默认只认识js模块，那么遇到非js模块该怎么办？
-// loader 帮助我们告诉浏览器遇到除js以外的模块怎么处理
 a()
 b()
 
-// webpack会去匹配webpack配置的localhost:3000
-axios.get('/api/info').then((res)=>{
-  console.log(res)
-})
-
-function lm() {
-  console.log('welcome to webpack')
+if (module.hot) {
+  module.hot.accept('./a', () => {
+    console.log('有更新了')
+    document.body.removeChild(document.getElementById('number'))
+    a()
+  })
 }
 
-lm()
+// HMR 默认对CSS模块支持较好， 对JS模块需要额外的处理 通过module.hot.accept
+// 对需要更新的模块进行监控
 
+
+// var btn = document.createElement("button");
+// btn.innerHTML = "新增"
+// document.body.appendChild(btn)
+
+// btn.onclick = function() {
+//   var div = document.createElement("div")
+//   div.innerHTML = "item"
+//   document.body.appendChild(div)
+// }

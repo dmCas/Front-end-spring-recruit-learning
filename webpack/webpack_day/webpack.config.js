@@ -1,7 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack')
 
 module.exports = {
   mode: "development",
@@ -25,11 +26,12 @@ module.exports = {
       filename: 'index.html'
     }),
     new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css',
-      ignoreOrder: false,
-    })
+    // new MiniCssExtractPlugin({
+    //   filename: '[name].css',
+    //   chunkFilename: '[id].css',
+    //   ignoreOrder: false,
+    // })
+    new webpack.HotModuleReplacementPlugin() 
   ],
   module: {
     // 遇到除了js之外的模块就在这里写,在这里找loader
@@ -48,9 +50,9 @@ module.exports = {
       },
       {
         test:/\.css$/,
-        // use: [ 'style-loader', 'css-loader', 'postcss-loader' ]
+        use: [ 'style-loader', 'css-loader', 'postcss-loader' ]
         // 使用了插件 mini-css-extract-plugin插件之后
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
+        // use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
       },
       {
         test:/\.scss$/, // loader是有执行顺序的,从后往前
@@ -62,9 +64,11 @@ module.exports = {
     contentBase: './build',
     open: true, //  运行这个服务的时候自动打开浏览器
     port: '8081', 
-    proxy: { // 设置代理 解决跨域   匹配到/api/info 就转发到http://localhost:8081域名下 只在开发环境中生效
+    hot: true, // 热更新 只触发重绘 不刷新浏览器就更新视图
+    hotOnly: true, // ???即使HMR不生效，浏览器也不会自动刷新
+    proxy: { // 设置代理 解决跨域   匹配http://localhost:3000到webpack代理/api下 只在开发环境中生效
       '/api': 'http://localhost:3000' // 服务器没有同源策略 只有浏览器有
-    },
+    }
   }
 
 };
