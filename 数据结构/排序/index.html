@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+  var object = {
+  test: 5,
+  color:'red',
+  song: 'I Believe In A Thing Called Love',
+  profession:'Singer',
+  gender:'Male',
+  languages: {
+    array: ['French', 'German', 'English']
+  },
+  relationships: {
+    'sister': 'Jasmine',
+    'brother': 'Ryan'
+  }
+  }
+  
+
+
+  var quickSort = function(obj, fn){
+    var key 
+    var newObject = {}
+    var keyArray = []
+    var newkeyArray = []
+    // 遍历每一个key
+    for (key in obj) {
+      keyArray.push(key)
+    }
+    newkeyArray = keyArray.sort()
+    for (var i = 0; i< newkeyArray.length; i++) {
+      item = newkeyArray[i]
+      newObject[item] = obj[item]
+    }
+    for (key in newObject) {
+      if(newObject[key] instanceof Array){
+        // 调用递归
+      }
+    }
+    
+    return newObject
+  }
+  
+  var o = JSON.stringify(quickSort(object))
+  console.log(o) 
+  </script>
+</body>
+</html>

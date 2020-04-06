@@ -1,0 +1,103 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <input type="text" id="throttle">
+  </div>
+
+  <script>
+    var inputnormal = document.getElementById('throttle')
+    inputnormal.addEventListener('keyup', jieliu(fn, 5000))
+
+    function throttle1(fn, duration){
+      var timer
+      return function(...args){
+        clearTimeout(timer)
+        let context = this;
+        timer = setTimeout((e) => {
+          fn.apply(context, args)
+        }, duration)
+      }
+    }
+    function fn(){
+      console.log(1234)
+    }
+    function jieliu(fn , duration){
+      var timer = null
+      return function(...args) {
+        if(!timer){
+          timer = setTimeout(() => {  
+            fn.apply(this, args)
+            timer = null
+          }, duration)
+        }
+      }
+
+    }
+  </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>防抖</title>
+</head>
+<body>
+  <button id="debounce">点我防抖！</button>
+  <button id="throttle">点我节流！</button>
+  <script>
+    window.onload = function() {
+      // 1、获取这个按钮，并绑定事件
+      var myDebounce = document.getElementById("debounce");
+      var myThrottle = document.getElementById("throttle")
+      myDebounce.addEventListener("click", debounce(sayDebounce));
+      myThrottle.addEventListener("click", throttle(sayThrottle));
+    }
+
+    function debounce(fn, duration){
+      var timer
+      return function(...args){
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          fn.apply(this, args)
+        }, duration)
+      }
+    }
+    function sayDebounce(){
+      console.log('触发防抖')
+    }
+
+    function throttle(fn) {
+      // 指定时间间隔只进行一次操作
+      var flag = true
+      return function(...args) {
+        if(!flag){
+          return 
+        }
+        flag = false
+        timer = setTimeout(() => {
+          fn.apply(this, args)
+          flag = true
+        }, 2000)
+        
+      }
+    }
+
+    function sayThrottle(){
+      console.log('触发节流')
+    }
+
+
+  </script>
+</body>
+</html>
