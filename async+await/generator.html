@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function foo() {
+      // setTimeout(() => {
+      //   console.log(123)
+      // },2000)
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(666);
+        }, 2000)
+      })
+    }
+    function* test() { // 可以被中止的 一级一级执行
+      console.log('start');
+      let a = yield foo();
+      // a ??? 和 yield 后面的值没有任何关系
+      console.log('a', a)
+      let b = yield 2;
+      console.log('b', b)
+      console.log('end')
+    }
+    let g = test()
+
+    // a 的值可以通过 next 方法 传递 next 传递的参数就是上一个 yield的返回值
+    // console.log(g.next())
+    // console.log(g.next('A yield-value'))
+    // console.log(g.next('B yield-value'))
+    // // -------------------- 1 ------------
+    // // start value:foo value:2 end done:false
+    // console.log(g.next()) // value: 2 yield后面的值 返回一个foo 不会等到定时器过后蔡志心后面的代码
+    // console.log(g.next()) // value: 2 yield后面的值
+    // console.log(g.next()) // done: true  -> test已被调用完
+
+
+    // generate 内部相比普通函数而言 是可以被中止的
+    // 相比普通函数而言 调用的时候是通过一步步的 next 来调用的
+
+    // while(!g.next().done){
+    //   console.log(g.next())
+    // }
+
+    // 操作系统 协程 -->
+
+    function generateAutoRun(gen) {
+      let g = gen();
+      function next(value) {
+        let res = g.next(value);
+        if(res.done) return ;
+        next(res.value);
+      }
+      next()
+    }
+    generateAutoRun(test)
+  </script>
+</body>
+</html>
