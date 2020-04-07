@@ -55,7 +55,7 @@
 <body>
   <button id="debounce">点我防抖！</button>
   <button id="throttle">点我节流！</button>
-  <script>
+  <!-- <script>
     window.onload = function() {
       // 1、获取这个按钮，并绑定事件
       var myDebounce = document.getElementById("debounce");
@@ -98,6 +98,49 @@
     }
 
 
+  </script> -->
+
+
+  <script>
+    window.onload = function() {
+    // 1、获取这个按钮，并绑定事件
+    var myDebounce = document.getElementById("debounce");
+    var myThrottle = document.getElementById("throttle")
+    myDebounce.addEventListener("click", debounce(sayDebounce));
+    myThrottle.addEventListener("click", throttle(sayThrottle));
+    }
+    
+    function sayDebounce(){
+      console.log('我是防抖函数！')
+    }
+
+    function sayDebounce(){
+      console.log('我是节流函数！')
+    }
+    function debounce(fn){
+      var timer;
+      return function(...args){
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          fn.apply(this, args)
+        }, 2000)
+      }
+    }
+
+
+    function throttle(){
+      var flag = true
+      return function(...args){
+        if(flag = false) {
+          return 
+        }
+        flag = false
+        setTimeout(() =>{
+          fn.apply(this, args)
+          flag = true
+        }, 2000)
+      }
+    }
   </script>
 </body>
 </html>
