@@ -1,4 +1,8 @@
-let p = Promise.resolve(1);
+let p = new Promise((resolve) => {
+  setTimeout(() => {
+    resolve(123)
+  }, 5000)
+})
 let p2 = new Promise((resolve) => {
   setTimeout(() => {
     resolve(234)

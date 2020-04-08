@@ -26,13 +26,24 @@ function BinarySearchTrere() {
   BinarySearchTrere.prototype.insert = function(key){
     // 1.根据key创建节点
     var newNode = new Node(key)
-
     // 2.判断根节点是否有值
     if(this.root == null){
       this.root = newNode
     }
     else{
       this.insertNode(this.root, newNode)
+    }
+  }
+
+  // 树的遍历
+  // 1. 先序遍历
+  BinarySearchTrere.prototype.preOrderTraversal = function () {
+    this.preOrderTraversal(this.root)
+  }
+  // 对于某个节点进行遍历
+  BinarySearchTrere.prototype.preOrderTraversalNode = function(node){
+    if (node != null) {
+      console.log(node.key)
     }
   }
 }

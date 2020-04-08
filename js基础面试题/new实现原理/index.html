@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function Foo(e) {
+      this.name = 'wn'
+      this.age = e
+
+    }
+
+    function objectFactory() {
+      // 1. 创建一个可以返回对象
+      const obj = {} 
+      // shift删除第一项并返回 3. 拿到第一位是构造函数
+      const Constructor = [].shift.call(arguments)
+      // const [Constructor, ...args] = [...arguments]
+      // console.log(Constructor) // ƒ Foo(e) { this.name = 'wn'this.age = e }
+      
+      // 原型连接 拥有构造函数的一系列属性和方法
+      obj.__proto__ = Constructor.prototype
+      // 4. 调用构造函数,构造函数的作用域指向obj空对象
+      const ret = Constructor.apply(obj, arguments)
+      // return obj // 2. 返回这个对象
+      
+      return typeof ret === 'object' ? ret : obj
+    }
+
+    console.log(new Foo(18))
+    console.log(objectFactory(Foo, 18))
+
+
+
+    // // prototype 每一个函数都会有 指向函数的原型对象
+    // // __proto__(隐式原型链)
+    // function abc() {
+
+    // }
+    // // abc.prototype ---> {constructor: f}
+    // console.log(abc.prototype)
+    // // [[prototype]] 任何一个对象都有一个内置的属性, 私有属性 可以通过__proto__来访问
+    // 实例的隐式原型指向这个对象的构造函数的prototype
+
+    // function Abc () {
+    //   this.name = 'wn'
+    // }
+
+    // let test = new Abc()
+    // test.__proyo__ = Abc.prototype
+  </script>
+</body>
+</html>
