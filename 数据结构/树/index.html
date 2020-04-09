@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function BinarySearchTrere() {
+      function Node(key) {
+        this.key = key
+        this.left = null
+        this.right = null
+      }
+      this.root = null
+
+      BinarySearchTrere.prototype.insertNode = function (node, newNode) {
+        // 如果新节点小于node节点
+        if (newNode.key < node.key) { // 向左查找
+          if (node.left == null) {
+            node.left = newNode
+          } else {
+            this.insertNode(node.left, newNode)
+          }
+        } else { // 向右查找
+          if (node.right == null) {
+            node.right = newNode
+          } else {
+            this.insertNode(node.right, newNode)
+          }
+        }
+      }
+
+      BinarySearchTrere.prototype.insert = function (key) {
+        // 1.根据key创建节点
+        var newNode = new Node(key)
+        // 2.判断根节点是否有值
+        if (this.root == null) {
+          this.root = newNode
+        }
+        else {
+          this.insertNode(this.root, newNode)
+        }
+      }
+
+      // 树的遍历
+      // 1. 先序遍历
+      BinarySearchTrere.prototype.preOrderTraversal = function (handler) {
+        this.preOrderTraversalNode(this.root, handler)
+      }
+      // 对于某个节点进行遍历
+      // 第一次:node -> 11
+      // 第二次:node -> 7
+      // 第三次:node -> 5
+      // 第四次:node -> 3
+      BinarySearchTrere.prototype.preOrderTraversalNode = function (node, handler) {
+        if (node != null) {
+          // 1. 处理经过的节点
+          handler(node.key)
+
+          // 2. 处理经过节点的左子节点
+          this.preOrderTraversalNode(node.left, handler)
+
+          // 3. 处理经过节点的右子节点
+          this.preOrderTraversalNode(node.right, handler)
+        }
+      }
+    }
+
+    var treeNode = new BinarySearchTrere()
+    treeNode.insert(11)
+    treeNode.insert(7)
+    treeNode.insert(15)
+    treeNode.insert(5)
+    treeNode.insert(3)
+    treeNode.insert(9)
+    treeNode.insert(8)
+    treeNode.insert(10)
+    treeNode.insert(12)
+    treeNode.insert(15)
+    console.log(treeNode)
+    var resultString = ' '
+    treeNode.preOrderTraversal(function(key) {
+      resultString += key + ' '
+    })
+    alert(resultString)
+  </script>
+</body>
+
+</html>

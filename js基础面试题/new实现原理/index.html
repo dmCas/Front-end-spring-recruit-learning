@@ -33,6 +33,13 @@
     console.log(new Foo(18))
     console.log(objectFactory(Foo, 18))
 
+    function objectFactory(){
+      const obj = {}
+      const Constructor = [].slice.call(arguments)
+      obj.__proto__ = Constructor.prototype
+      Constructor.apply(obj, arguments)
+      return obj
+    }
 
 
     // // prototype 每一个函数都会有 指向函数的原型对象
