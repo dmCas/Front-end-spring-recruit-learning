@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    .img-style{
+      width: 500px;
+      margin: 0 auto;
+      height: 300px;
+      box-shadow: 1px 1px 1.5px rgba(0, 0, 0, 0.2);
+      margin-bottom: 10px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="" data-original="./img/img_dog(1).jpg" alt="" class="img-style">
+    <img src="" data-original="./img/img_dog(2).jpg" alt="" class="img-style">
+    <img src="" data-original="./img/img_dog(3).jpg" alt="" class="img-style">
+    <img src="" data-original="./img/img_dog(4).jpg" alt="" class="img-style">
+    <img src="" data-original="./img/img_dog(5).jpg" alt="" class="img-style">
+    <img src="" data-original="./img/img_dog(6).jpg" alt="" class="img-style">
+    <img src="" data-original="./img/img_dog(8).jpg" alt="" class="img-style">
+    <img src="" data-original="./img/img_dog(9).jpg" alt="" class="img-style">
+
+  </div>
+  <script>
+    var viewHeight = document.documentElement.clientHeight; // 可视高度
+    function lazyLoad() {
+      var ele = document.querySelectorAll('.img-style')
+      Array.prototype.map.call(ele, (item) => {
+        var rect = item.getBoundingClientRect();
+        console.log(rect)
+        //如果出现在可视区内
+        if(rect.top < viewHeight && rect.bottom >= 0){
+          (function(){
+            var img = new Image()
+            img.src = item.dataset.original
+            // onload 事件在图片加载完成后立即执行。
+            img.onload = function(){
+              item.src = img.src
+            }
+            item.removeAttribute('data-original')
+          })()
+        }
+      })
+    }
+    lazyLoad()
+    var throttle = function(fn) {
+      var flag = true
+      return function(...args) {
+        if(!flag){
+          return
+        }
+        flag = false
+        setTimeout(() => {
+          fn.apply(this, args)
+          flag = true
+        }, 1000)
+      }
+    }
+    document.addEventListener('scroll', throttle(lazyLoad))
+  </script>
+</body>
+</html>
