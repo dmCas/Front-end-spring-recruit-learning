@@ -60,14 +60,15 @@ module.exports = {
       },
       {
         test: /\.js$/, // loader是有执行顺序的,从后往前\
-        exclude: /node_modules/, // 排除node_modules中的js模块
+        exclude: /node_modules/, // 检测时排除node_modules中的js模块
         use: {
           loader: 'babel-loader',
           // 使用loader的一些配置项
           options: {
             // 使用规则
             "presets": [
-              ["@babel/preset-env",
+              [
+                "@babel/preset-env",
                 {
                   useBuiltIns: "usage", // 按需加载 会在pollyfill找需要的模块加载,
                   corejs:2
