@@ -151,5 +151,20 @@
 // array.includes(searchElement,fromIndex=0)
 {
   // 可以是否NaN
+}
 
+  
+{
+  let a = [1, 2, 3]; // 最后第二个元素是空的，不会遍历(undefined、null会遍历)
+  let obj = { name: 'OBKoro1' };
+  let result = a.forEach(function (value, index, array) { 
+    a[3] = '改变元素';
+    a.push('添加到尾端，不会被遍历')
+    console.log(value, 'forEach传递的第一个参数'); // 分别打印 1 ,2 ,改变元素
+    console.log(this.name); // OBKoro1 打印三次 this绑定在obj对象上
+    // break; // break会报错
+    return value; // return只能结束本次回调 会执行下次回调
+    console.log('不会执行，因为return 会执行下一次循环回调')
+  }, obj);
+  console.log(result); // 即使return了一个值,也还是返回undefined
 }
