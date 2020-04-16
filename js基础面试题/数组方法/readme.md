@@ -17,3 +17,6 @@
     forEach、every 、some、 filter、map、reduce、reduceRight、
   ES6：
     find、findIndex、keys、values、entries
+
+  1. map 返回一个新数组
+  2. foreach 
