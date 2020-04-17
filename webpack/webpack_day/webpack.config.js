@@ -20,7 +20,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       // 项目构建的流程过程当中的某一个特定的时间点，不同的插件执行的时间点不一样，插件相当于是我们webpack的一个生命周期
-      // 他执行的作用就是在webpack执行构建的过程当中的某一个特定的时间点来注入我们的扩展逻辑，达到一个什么修改构建结果的这么一个目的
+      // 他执行的作用就是在webpack执行构建的过程当中的某一个特定的时间点来注入我们的扩展逻辑，达到一个什么修改构建结果的目的
       template: "./index.html", // 指定一个自己定义的模板
       title: '标题-自己取的',
       filename: 'index.html'
